@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
+#include "../fibonacci/fibonacci.h"
 
 #define MENSAJE "<html><body>" \
                        "<h1>Fibonacci</h1>" \
@@ -15,13 +16,13 @@ int responder(void *cls, struct MHD_Connection *connection,
               const char *upload_data,
               size_t *upload_data_size, void **con_cls)
 {
-    static int numero = 1;
-    int tamanio = sizeof (MENSAJE)+log(numero)/log(10)+log(numero)/log(10);
+    static int numero = 0;
+    int f = fibonacci(++numero);
+    int tamanio = sizeof (MENSAJE)+log(f)/log(10)+log(numero)/log(10);
     char *page = malloc(tamanio);
     int ret;
     struct MHD_Response *response;
-    sprintf(page, MENSAJE, numero, numero);
-    numero ++;
+    sprintf(page, MENSAJE, numero, f);
     response = MHD_create_response_from_buffer(strlen(page),
                                                (void *)page, MHD_RESPMEM_MUST_FREE);
     MHD_add_response_header(response, MHD_HTTP_HEADER_CONTENT_TYPE, "text/html");
