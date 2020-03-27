@@ -23,11 +23,10 @@ int responder(void *cls, struct MHD_Connection *connection,
     sprintf(page, MENSAJE, numero, numero);
     numero ++;
     response = MHD_create_response_from_buffer(strlen(page),
-                                               (void *)page, MHD_RESPMEM_PERSISTENT);
+                                               (void *)page, MHD_RESPMEM_MUST_FREE);
     MHD_add_response_header(response, MHD_HTTP_HEADER_CONTENT_TYPE, "text/html");
     ret = MHD_queue_response(connection, MHD_HTTP_OK, response);
     MHD_destroy_response(response);
-    free(page);
     return ret;
 }
 
