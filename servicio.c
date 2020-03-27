@@ -5,10 +5,10 @@
 #include <stdlib.h>
 #include "../fibonacci/fibonacci.h"
 
-#define MENSAJE "<html><body>" \
-                       "<h1>Fibonacci</h1>" \
-                       "El %d n&uacute;mero es %d." \
-                       "</body></html>"
+#define MENSAJE "<html><body>"               \
+                "<h1>Fibonacci</h1>"         \
+                "El %d n&uacute;mero es %d." \
+                "</body></html>"
 
 int responder(void *cls, struct MHD_Connection *connection,
               const char *url,
@@ -18,7 +18,7 @@ int responder(void *cls, struct MHD_Connection *connection,
 {
     static int numero = 0;
     int f = fibonacci(++numero);
-    int tamanio = sizeof (MENSAJE)+log(f)/log(10)+log(numero)/log(10);
+    int tamanio = sizeof(MENSAJE) + log(f) / log(10) + log(numero) / log(10);
     char *page = malloc(tamanio);
     int ret;
     struct MHD_Response *response;
